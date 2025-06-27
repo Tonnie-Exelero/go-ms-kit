@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"orchestrax/mf-toolkit/graph"
-	"orchestrax/mf-toolkit/templates"
+	"github.com/Tonnie-Exelero/go-ms-kit/graph"
+	"github.com/Tonnie-Exelero/go-ms-kit/templates"
 
 	"github.com/gin-gonic/gin"
 )

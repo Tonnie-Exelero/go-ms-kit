@@ -1,4 +1,4 @@
-module orchestrax/mf-toolkit
+module github.com/Tonnie-Exelero/go-ms-kit
 
 go 1.23.0
 

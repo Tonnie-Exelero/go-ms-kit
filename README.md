@@ -15,7 +15,7 @@ This is a fast-track toolkit for building micro frontend services using Go 1.22,
 ## Project Structure
 
 ```
-orchestrax/mf-toolkit/
+github.com/Tonnie-Exelero/go-ms-kit/
 ├── Dockerfile
 ├── Makefile
 ├── .env
@@ -50,9 +50,11 @@ orchestrax/mf-toolkit/
 1. **Clone the repository:**
    ```bash
    git clone [MF-Toolkit URL](https://github.com/DarrylOrchestraX/orchestrax-mf-toolkit.git)
-   cd orchestrax/mf-toolkit
-   
+   cd github.com/Tonnie-Exelero/go-ms-kit
+
+   ```
 2. **Using Toolkit**
+
 ```
 <!DOCTYPE html>
 <html>
@@ -67,10 +69,10 @@ orchestrax/mf-toolkit/
     <div id="mf-container"></div>
     <!-- (If using inline detail mode, include a container for details) -->
     <div id="mf-detail-container"></div>
-    
+
     <!-- Include the SDK -->
     <script src="https://yourcdn.com/micro-frontend-sdk.js"></script>
-    
+
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         MicroFrontend.init({

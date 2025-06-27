@@ -7,9 +7,10 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"orchestrax/mf-toolkit/models" // Adjust the import path as necessary
 	"os"
 	"strings"
+
+	"github.com/Tonnie-Exelero/go-ms-kit/models" // Adjust the import path as necessary
 )
 
 type CourseView struct {

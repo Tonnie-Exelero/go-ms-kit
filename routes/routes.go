@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"orchestrax/mf-toolkit/handlers"
-	"orchestrax/mf-toolkit/middleware"
+	"github.com/Tonnie-Exelero/go-ms-kit/handlers"
+	"github.com/Tonnie-Exelero/go-ms-kit/middleware"
 
 	"github.com/gin-gonic/gin"
 )

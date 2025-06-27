@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"orchestrax/mf-toolkit/routes"
+	"github.com/Tonnie-Exelero/go-ms-kit/routes"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
