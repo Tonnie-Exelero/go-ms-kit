@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"github.com/Tonnie-Exelero/go-ms-kit/handlers"
-	"github.com/Tonnie-Exelero/go-ms-kit/middleware"
+	"github.com/Tonnie-Exelero/go-ms-kit/tree/main/handlers"
+	"github.com/Tonnie-Exelero/go-ms-kit/tree/main/middleware"
 
 	"github.com/gin-gonic/gin"
 )

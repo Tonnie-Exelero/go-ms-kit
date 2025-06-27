@@ -1,4 +1,4 @@
-module github.com/Tonnie-Exelero/go-ms-kit
+module github.com/Tonnie-Exelero/go-ms-kit/tree/main
 
 go 1.23.0
 

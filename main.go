@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Tonnie-Exelero/go-ms-kit/routes"
+	"github.com/Tonnie-Exelero/go-ms-kit/tree/main/routes"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

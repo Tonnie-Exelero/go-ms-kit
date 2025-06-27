@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Tonnie-Exelero/go-ms-kit/graph"
-	"github.com/Tonnie-Exelero/go-ms-kit/templates"
+	"github.com/Tonnie-Exelero/go-ms-kit/tree/main/graph"
+	"github.com/Tonnie-Exelero/go-ms-kit/tree/main/templates"
 
 	"github.com/gin-gonic/gin"
 )
