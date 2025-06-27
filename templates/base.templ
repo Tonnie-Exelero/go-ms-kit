@@ -1,0 +1,29 @@
+package templates
+
+templ Base() {
+	@App("Micro Frontend Service") {
+		<main>
+	   		<div class="header">
+				<div class="header__title">Recommended courses based on your interest!</div>
+				<div class="header__logo">
+            		<img src={ "/assets/images/training.svg"} alt="Brand Logo" class="header__logo-image"/>
+				</div>
+			</div>
+			<div id="dynamic-content">
+				<div class="mf-container">
+					{ children... }
+				</div>
+			</div>
+	   		<div class="footer">
+        		<button class="footer__btn-left">
+					<i class="fa-solid fa-rotate-left"></i>
+					Reset
+				</button>
+        		<button class="footer__btn-right">
+					<i class="fa-solid fa-shuffle"></i>
+					Shuffle Results
+				</button>
+			</div>
+		</main>
+	}
+}

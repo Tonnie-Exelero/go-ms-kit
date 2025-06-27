@@ -1,0 +1,160 @@
+@use "../abstracts" as a;
+
+.card {
+  flex: 0 0 auto;
+  background: a.$color-background;
+  border-radius: a.$border-radius-md;
+  box-shadow: a.$shadow-md;
+  overflow: hidden;
+  @include a.transition();
+  @include a.hover-lift();
+
+  max-width: 242px;
+  width: 100%;
+
+  &__image-container {
+    @include a.flex-start;
+    gap: a.$spacing-sm;
+  }
+
+  &__image {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    @include a.aspect-ratio(1, 1);
+    @include a.transition(transform);
+
+    .card:hover & {
+      transform: scale(1.05);
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 60%,
+      a.$color-overlay 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: a.$spacing-lg;
+    opacity: 0;
+    @include a.transition(opacity);
+
+    .card:hover & {
+      opacity: 1;
+    }
+  }
+
+  &__content {
+    padding: a.$spacing-sm;
+    @include a.flex-column();
+    gap: a.$spacing-lg;
+  }
+
+  &__header {
+    @include a.flex-column();
+    gap: a.$spacing-sm;
+    background-color: a.$color-background-header;
+    border-top-left-radius: a.$border-radius-md;
+    border-top-right-radius: a.$border-radius-md;
+    padding: a.$spacing-md;
+  }
+
+  &__code {
+    font-family: a.$font-family-primary;
+    font-size: a.$font-size-xs;
+    font-weight: a.$font-weight-bold;
+    color: a.$color-text-primary;
+    margin: 0;
+    @include a.text-clamp(1);
+  }
+
+  &__title {
+    font-family: a.$font-family-primary;
+    font-size: a.$font-size-base;
+    font-weight: a.$font-weight-semibold;
+    color: a.$color-text-primary;
+    margin: 0;
+    @include a.text-clamp(1);
+  }
+
+  &__description {
+    font-family: a.$font-family-primary;
+    font-size: a.$font-size-xs;
+    font-weight: a.$font-weight-semibold;
+    color: a.$color-text-secondary;
+    line-height: 1.5;
+    margin: 0;
+    @include a.text-clamp(1);
+  }
+
+  &__body {
+    padding-block: a.$spacing-sm;
+    padding-inline: a.$spacing-xl;
+    @include a.flex-column();
+    gap: a.$spacing-lg;
+  }
+
+  &__item {
+    @include a.flex-start;
+    gap: a.$spacing-sm;
+
+    &-icon {
+      @include a.flex-center;
+    }
+
+    &-value {
+      width: 100%;
+      font-family: a.$font-family-primary;
+      font-size: a.$font-size-xs;
+      font-weight: a.$font-weight-normal;
+      color: a.$color-text-secondary;
+      line-height: 1.5;
+      @include a.text-clamp(1);
+    }
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  &__footer {
+    @include a.flex-end;
+
+    &-btn {
+      border-radius: a.$border-radius-md;
+      padding: a.$spacing-sm;
+      background-color: transparent;
+
+      &:hover {
+        cursor: pointer;
+        background-color: buttonface;
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @include a.respond-to(sm) {
+    max-width: 350px;
+
+    &__content {
+      padding: a.$spacing-lg;
+    }
+
+    &__title {
+      font-size: a.$font-size-lg;
+    }
+  }
+
+  @include a.respond-to(md) {
+    max-width: 400px;
+  }
+}

@@ -1,0 +1,27 @@
+@use "sass:map";
+@use "variables" as v;
+
+// Get color from colors map
+@function color($color-name) {
+  @return map.get(v.$colors, $color-name);
+}
+
+// Get spacing value
+@function spacing($key) {
+  @return map.get(v.$spacing, $key);
+}
+
+// Get breakpoint value
+@function breakpoint($key) {
+  @return map.get(v.$breakpoints, $key);
+}
+
+// Get font-size value
+@function font-size($key) {
+  @return map.get(v.$font-sizes, $key);
+}
+
+// Get font-family value
+@function font-family($key) {
+  @return map.get(v.$font-families, $key);
+}

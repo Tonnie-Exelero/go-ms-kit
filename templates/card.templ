@@ -1,0 +1,64 @@
+package templates
+
+import (
+	"orchestrax/mf-toolkit/graph"
+)
+
+templ Card(course graph.CourseView) {
+	<article class="card">
+        <div class="card__content">
+            @CardHeader(course)
+            @CardBody(course)
+            @CardFooter(course)
+        </div>
+    </article>
+}
+
+templ CardHeader(course graph.CourseView) {
+    <header class="card__header">
+        <h5 class="card__code">{ course.CourseCode }</h5>
+        <h3 class="card__title">{ course.CourseName }</h3>
+
+		<div class="card__image-container">
+            <img src={ "/assets/images/placeholder.svg"} alt={ course.CourseName } class="card__image"/>
+            <div class="card__description">@templ.Raw(course.Overview)</div>
+        </div>
+    </header>
+}
+
+templ CardBody(course graph.CourseView) {
+    <div class="card__body">
+        <div class="card__item">
+            <span class="card__item-icon"><img src={ "/assets/images/clock.svg"} alt={ course.CourseName } class="card__icon"/></span>
+            <span class="card__item-value">
+				{ course.DurationLength + " " + course.DurationUnit }
+				if course.FrequencyText != "" {
+					{ "| " + course.FrequencyText }
+				}
+			</span>
+        </div>
+        <div class="card__item">
+            <span class="card__item-icon"><img src={ "/assets/images/delivery.svg"} alt={ course.CourseName } class="card__icon"/></span>
+            <span class="card__item-value">{ course.DeliveryText }</span>
+        </div>
+        <div class="card__item">
+            <span class="card__item-icon"><img src={ "/assets/images/outcome.svg"} alt={ course.CourseName } class="card__icon"/></span>
+            <span class="card__item-value">@templ.Raw(course.JobOutcomes)</span>
+        </div>
+    </div>
+}
+
+templ CardFooter(course graph.CourseView) {
+    <div class="card__footer">
+        <button 
+			class="card__footer-btn mf-has-url"
+			hx-get={ "/courses/" + string(course.IDText) }
+			hx-target="#mf-modal"
+			hx-swap="innerHTML"
+			hx-trigger="click"
+		>
+			Learn More
+		</button>
+    </div>
+}
+

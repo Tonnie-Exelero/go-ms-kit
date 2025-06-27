@@ -1,0 +1,55 @@
+# Binary executables
+*.exe
+*.out
+*.o
+*.a
+*.so
+*.dll
+*.dylib
+*.bin
+*.test
+
+# Project files
+.env
+.commands
+
+# Build directories
+bin/
+build/
+dist/
+
+# Go-related files
+cover.out
+*.log
+*.prof
+
+# Dependency management. If using Go Modules, you usually don't need to commit vendor/
+vendor/
+
+# Go module files (if you use `go mod vendor`, then keep `vendor/`)
+/go.sum.bak
+/go.work.sum.bak
+
+# IDE and editor-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.sublime-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary or debugging files
+*.tmp
+*.bak
+*.old
+
+# Templ
+*_templ.go
+
+# Built styles
+assets/css/*.css
+assets/css/*.css.map

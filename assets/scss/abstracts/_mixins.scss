@@ -1,0 +1,191 @@
+@use "./variables" as v;
+
+// Responsive breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: v.$breakpoint-sm) {
+      @content;
+    }
+  }
+  @if $breakpoint == md {
+    @media (min-width: v.$breakpoint-md) {
+      @content;
+    }
+  }
+  @if $breakpoint == lg {
+    @media (min-width: v.$breakpoint-lg) {
+      @content;
+    }
+  }
+  @if $breakpoint == xl {
+    @media (min-width: v.$breakpoint-xl) {
+      @content;
+    }
+  }
+}
+
+// Flexbox utilities
+@mixin flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Text utilities
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: max-width;
+}
+
+// Transitions
+@mixin transition($properties: all, $duration: 0.2s, $timing: ease-in-out) {
+  transition: $properties $duration $timing;
+}
+
+// Hover effects
+@mixin hover-lift {
+  @include transition(transform, 0.2s, ease-out);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// Image aspect ratio
+@mixin aspect-ratio($width: 16, $height: 9) {
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-top: calc($height / $width);
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Scrollable carousel
+@mixin horizontal-scrollable {
+  --card-width: 242px; // Set desired card width
+  --card-height: auto; // Set desired card height
+
+  display: flex;
+  overflow-x: auto;
+  gap: v.$spacing-xl;
+  flex-wrap: nowrap;
+  scroll-behavior: smooth;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  padding-block-end: v.$spacing-sm; // Space for scrollbar
+
+  // Hide scrollbar while maintaining functionality
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > * {
+    flex: 0 0 auto;
+    width: var(--card-width);
+    height: var(--card-height);
+  }
+}
+
+// Details
+@mixin detail-section {
+  @include flex-column();
+  gap: v.$spacing-xl;
+  border: 1px solid v.$color-background-header;
+  border-radius: v.$border-radius-md;
+  padding: v.$spacing-xl;
+}
+
+@mixin detail-title {
+  font-size: v.$font-size-2xl;
+  font-weight: v.$font-weight-bold;
+  line-height: 2.5rem;
+  color: v.$color-text-primary;
+}
+
+@mixin detail-description {
+  font-size: v.$font-size-base;
+  font-weight: v.$font-weight-normal;
+  line-height: 1.5rem;
+  color: v.$color-text-primary;
+  padding: v.$spacing-lg;
+
+  & * + * {
+    margin-top: 0.5rem;
+  }
+
+  & ul {
+    margin: 0.5rem 2rem;
+  }
+}
+
+@mixin detail-button {
+  font-family: v.$font-family-primary;
+  font-size: v.$font-size-base;
+  font-weight: v.$font-weight-semibold;
+  line-height: 1.2rem;
+  color: v.$color-text-primary;
+  margin: 0;
+  border: 1px solid v.$color-background-header;
+  border-radius: v.$border-radius-2xl;
+  padding: v.$spacing-sm v.$spacing-md;
+  background-color: transparent;
+
+  &--active {
+    background-color: buttonface;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: buttonface;
+  }
+}

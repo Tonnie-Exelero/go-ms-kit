@@ -1,0 +1,11 @@
+package templates
+
+import "orchestrax/mf-toolkit/graph"
+
+templ Home(courses *[]graph.CourseView) {
+	@App("Micro Frontend Service") {
+		@Cards(courses)
+
+		<div id="mf-modal" part="mf-modal" class="mf-modal"></div>
+	}
+}

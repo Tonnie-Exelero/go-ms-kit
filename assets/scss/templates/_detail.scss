@@ -1,0 +1,389 @@
+@use "../abstracts" as a;
+
+.detail {
+  @include a.flex-column();
+  gap: a.$spacing-lg;
+
+  &__header {
+    background: a.$color-background-grey;
+    padding: a.$spacing-xl;
+    @include a.flex-column();
+    gap: a.$spacing-lg;
+
+    &-image {
+      @include a.flex-start;
+      gap: a.$spacing-lg;
+      width: 100%;
+
+      @include a.respond-to(lg) {
+        width: 60%;
+      }
+    }
+
+    &-provider {
+      font-size: a.$font-size-xl;
+      font-weight: a.$font-weight-medium;
+      color: a.$color-text-primary;
+    }
+
+    &-title {
+      width: 100%;
+      font-size: a.$font-size-2xl;
+      font-weight: a.$font-weight-bold;
+      color: a.$color-text-primary;
+
+      @include a.respond-to(lg) {
+        width: 60%;
+        padding-inline-end: a.$spacing-2xl;
+      }
+    }
+
+    @include a.respond-to(lg) {
+      padding: a.$spacing-3xl;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-block-end: a.$spacing-xl;
+
+    @include a.respond-to(lg) {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: a.$spacing-lg;
+    }
+  }
+
+  &__image {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: a.$border-radius-sm;
+    @include a.aspect-ratio(1, 1);
+    @include a.transition(transform);
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__content {
+    @include a.flex-column();
+    gap: a.$spacing-xl;
+    padding: a.$spacing-xl;
+    width: 100%;
+
+    @include a.respond-to(lg) {
+      width: 60%;
+      padding: a.$spacing-xl a.$spacing-xl a.$spacing-xl a.$spacing-3xl;
+    }
+  }
+
+  &__inquire-form {
+    position: relative;
+    min-height: 300px;
+    max-height: 800px;
+    width: initial;
+    height: 100%;
+    overflow: hidden;
+    background-color: a.$color-background;
+    border: 1px solid a.$color-background-header;
+    border-radius: a.$border-radius-md;
+    margin-inline-start: a.$spacing-xl;
+    margin-inline-end: a.$spacing-xl;
+
+    @include a.respond-to(lg) {
+      width: 40%;
+      margin-block-start: -10rem;
+      margin-inline-start: 0;
+      margin-inline-end: a.$spacing-3xl;
+      border: none;
+      box-shadow: a.$shadow-md;
+    }
+
+    & iframe {
+      min-height: inherit;
+      height: 100%;
+      width: 100%;
+      display: block;
+      border: none;
+    }
+  }
+
+  // Top
+  &__top {
+    @include a.flex-column();
+    gap: a.$spacing-lg;
+
+    &-list {
+      font-size: a.$font-size-base;
+      font-weight: a.$font-weight-bold;
+      line-height: 1.5rem;
+      color: a.$color-text-primary;
+      padding-inline-start: a.$spacing-lg;
+    }
+
+    &-cta {
+      @include a.flex-start;
+      gap: a.$spacing-md;
+      background-color: a.$color-background-header;
+      border-radius: a.$border-radius-md;
+      padding: a.$spacing-lg a.$spacing-xl;
+    }
+  }
+
+  // Course Information
+  &__overview {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-nav {
+      @include a.flex-start;
+      gap: a.$spacing-lg;
+      flex-wrap: wrap;
+    }
+
+    &-btn {
+      @include a.detail-button;
+    }
+
+    &-description {
+      @include a.detail-description;
+    }
+  }
+
+  // Subjects
+  &__subjects {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    & .accordion {
+      @include a.flex-column();
+      gap: a.$spacing-md;
+      padding: a.$spacing-md;
+
+      &.main {
+        border: 1px solid a.$color-background-header;
+        border-radius: a.$border-radius-md;
+      }
+
+      & .accordion-header {
+        font-family: a.$font-family-primary;
+        font-size: a.$font-size-base;
+        font-weight: a.$font-weight-normal;
+        line-height: a.$spacing-xl;
+        color: a.$color-text-primary;
+        @include a.flex-between;
+        cursor: pointer;
+
+        &.main {
+          font-size: a.$font-size-lg !important;
+          font-weight: a.$font-weight-bold !important;
+        }
+
+        & .rotatable {
+          transition: transform 0.3s ease;
+        }
+
+        & .rotated {
+          transform: rotate(180deg);
+        }
+      }
+
+      &.open > .accordion-header {
+        font-weight: a.$font-weight-bold;
+      }
+
+      & .accordion-content {
+        display: none;
+      }
+
+      &.open > .accordion-content {
+        display: block;
+        font-family: a.$font-family-primary;
+        font-size: a.$font-size-base;
+        font-weight: a.$font-weight-normal;
+        line-height: a.$spacing-xl;
+        color: a.$color-text-secondary;
+
+        &.main > * + * {
+          border-block-start: 1px solid a.$color-border;
+        }
+      }
+
+      &.child {
+        &.open {
+          background-color: a.$color-background-grey;
+          padding: a.$spacing-md;
+          border-radius: a.$border-radius-sm;
+
+          & + .child {
+            border-block-start: none !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Payment Option
+  &__payment {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-description {
+      @include a.detail-description;
+    }
+  }
+
+  // Career Pathway
+  &__career {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-nav {
+      @include a.flex-start;
+      gap: a.$spacing-lg;
+    }
+
+    &-btn {
+      @include a.detail-button;
+    }
+
+    &-description {
+      @include a.detail-description;
+    }
+  }
+
+  // Course Features
+  &__features {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-description {
+      @include a.detail-description;
+      padding: a.$spacing-lg a.$spacing-2xl a.$spacing-lg;
+    }
+  }
+
+  // Professional Recognition
+  &__recognition {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-nav {
+      @include a.flex-start;
+      gap: a.$spacing-lg;
+    }
+
+    &-btn {
+      @include a.detail-button;
+    }
+
+    &-description {
+      @include a.detail-description;
+    }
+  }
+
+  // Eligibility
+  &__eligibility {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-nav {
+      @include a.flex-start;
+      gap: a.$spacing-lg;
+    }
+
+    &-btn {
+      @include a.detail-button;
+    }
+
+    &-description {
+      @include a.detail-description;
+    }
+  }
+
+  // Work Placement
+  &__work {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-description {
+      @include a.detail-description;
+    }
+  }
+
+  // Curriculum
+  &__curriculum {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-nav {
+      @include a.flex-start;
+      gap: a.$spacing-lg;
+    }
+
+    &-btn {
+      @include a.detail-button;
+    }
+
+    &-description {
+      @include a.detail-description;
+    }
+  }
+
+  // Testimonials
+  &__testimonials {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-description {
+      @include a.detail-description;
+    }
+  }
+
+  // Additional Information
+  &__information {
+    @include a.detail-section;
+
+    &-title {
+      @include a.detail-title;
+    }
+
+    &-description {
+      @include a.detail-description;
+    }
+  }
+}

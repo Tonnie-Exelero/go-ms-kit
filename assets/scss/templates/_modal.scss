@@ -1,0 +1,68 @@
+@use "../abstracts" as a;
+
+.mf-modal {
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    background-color: a.$color-overlay;
+    @include a.flex-center;
+    z-index: 1200;
+    animation: modalFadeIn 0.3s ease-out;
+    overflow: visible;
+  }
+
+  &__content {
+    background: a.$color-background;
+    border-radius: a.$border-radius-md;
+    max-width: 1200px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+  }
+
+  &__close {
+    position: absolute;
+    top: a.$spacing-md;
+    right: a.$spacing-md;
+    width: a.$spacing-2xl;
+    height: a.$spacing-2xl;
+    border-radius: 50%;
+    background: transparent;
+    color: a.$color-secondary;
+    font-size: a.$font-size-2xl;
+    font-weight: a.$font-weight-normal;
+    @include a.flex-center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    z-index: 2;
+
+    &:hover {
+      color: a.$color-text-primary;
+    }
+  }
+}
+
+// Modal animations
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

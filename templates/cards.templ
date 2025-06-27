@@ -1,0 +1,21 @@
+package templates
+
+import "orchestrax/mf-toolkit/graph"
+
+templ Cards(courses *[]graph.CourseView) {
+	@Base() {
+		<div class="container">
+			<button class="arrow left" id="scrollLeft">
+				<i class="fas fa-chevron-left"></i>
+			</button>
+			<div id="carousel" class="carousel">
+				for _, course  := range *courses {
+					@Card(course)
+				}
+			</div>
+			<button class="arrow right" id="scrollRight">
+				<i class="fas fa-chevron-right"></i>
+			</button>
+		</div>
+	}
+}

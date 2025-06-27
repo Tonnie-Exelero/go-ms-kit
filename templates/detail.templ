@@ -1,0 +1,376 @@
+package templates
+
+import "orchestrax/mf-toolkit/graph"
+
+templ Detail(course *graph.CourseView, groups *[]ModuleGroup, iframeUrl string) {
+	<div class="detail">
+        @DetailHeader(course)
+
+		<div class="detail__main">
+			<div class="detail__content">
+				@DetailTop()
+				@DetailCourseInformation(course)
+				@DetailSubjects(course, groups)
+				@DetailPayment(course)
+				@DetailCareer(course)
+				@DetailFeatures(course)
+				@DetailRecognition(course)
+				@DetailEligibility(course)
+				@DetailWork(course)
+				@DetailCurriculum(course)
+				@DetailTestimonials(course)
+				@DetailInformation(course)
+			</div>
+
+			<div class="detail__inquire-form">
+				<iframe src={ iframeUrl + "?courseid=" + string(course.IDText) + "&restriction=" + course.GeoTargeting } width="100%" height="100%" frameborder="0" />
+			</div>
+		</div>
+    </div>
+}
+
+templ DetailHeader(course *graph.CourseView) {
+    <div class="detail__header">
+		<div class="detail__header-image">
+            <img src={ "/assets/images/placeholder.svg"} alt={ course.CourseName } class="detail__image"/>
+            <p class="detail__header-provider">{ course.Brand.ProviderName }</p>
+        </div>
+
+        <p class="detail__header-title">{ course.CourseName }</p>
+	</div>
+}
+
+templ DetailTop() {
+    <div class="detail__top">
+		<div class="detail__top-list">
+			<ul>
+				<li>This is a fee-for-service program</li>
+				<li>Please note this course does NOT qualify for VET FEE-Help or any other government funding. Flexible payment options available</li>
+			</ul>
+		</div>
+
+		<div class="detail__top-cta">
+			<i class="fa-solid fa-tag"></i>
+			<p>Limited scholarships available for April Intake – Save 20%. Enquire now!</p>
+		</div>
+	</div>
+}
+
+templ DetailCourseInformation(course *graph.CourseView) {
+    <div class="detail__overview">
+		<p class="detail__overview-title">Course Information</p>
+		<div class="detail__overview-nav">
+			if course.Overview != "" {
+				<button
+					class="detail__overview-btn detail__overview-btn--active"
+					hx-get={ "/courses/" + string(course.IDText) + "/info?section=overview" }
+					hx-target={"#overview-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click
+						add .detail__overview-btn--active to me
+						then remove .detail__overview-btn--active from my siblings()
+					"
+				>
+					Overview
+				</button>
+			}
+
+			if course.DurationAndStudyLoad != "" {
+				<button
+					class="detail__overview-btn"
+					hx-get={ "/courses/" + string(course.IDText) + "/info?section=duration" }
+					hx-target={"#overview-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click 
+						add .detail__overview-btn--active to me
+						then remove .detail__overview-btn--active from my siblings()
+					"
+				>
+					Duration & Study Load
+				</button>
+			}
+
+			if course.DeliveryLongText != "" {
+				<button
+					class="detail__overview-btn"
+					hx-get={ "/courses/" + string(course.IDText) + "/info?section=delivery" }
+					hx-target={"#overview-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click 
+						add .detail__overview-btn--active to me
+						then remove .detail__overview-btn--active from my siblings()
+					"
+				>
+					Delivery
+				</button>
+			}
+
+			if course.WhatYoullLearn != "" {
+				<button
+					class="detail__overview-btn"
+					hx-get={ "/courses/" + string(course.IDText) + "/info?section=skills" }
+					hx-target={"#overview-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click 
+						add .detail__overview-btn--active to me
+						then remove .detail__overview-btn--active from my siblings()
+					"
+				>
+					Skills You'll Learn
+				</button>
+			}
+
+			if course.WhoIsItFor != "" {
+				<button
+					class="detail__overview-btn"
+					hx-get={ "/courses/" + string(course.IDText) + "/info?section=whofor" }
+					hx-target={"#overview-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click 
+						add .detail__overview-btn--active to me
+						then remove .detail__overview-btn--active from my siblings()
+					"
+				>
+					Who Is It For?
+				</button>
+			}
+		</div>
+
+        <div id={"overview-curr-desc-" + string(course.IDText)} class="detail__overview-description">
+			if course.Overview != "" {
+				@templ.Raw(course.Overview)
+			} else if course.DurationAndStudyLoad != "" {
+				@templ.Raw(course.DurationAndStudyLoad)
+			} else if course.DeliveryLongText != "" {
+				@templ.Raw(course.DeliveryLongText)
+			} else if course.WhatYoullLearn != "" {
+				@templ.Raw(course.WhatYoullLearn)
+			} else {
+				@templ.Raw(course.WhoIsItFor)
+			}
+		</div>
+	</div>
+}
+
+templ DetailSubjects(course *graph.CourseView, groups *[]ModuleGroup) {
+    <div class="detail__subjects">
+		<p class="detail__subjects-title">Subjects</p>
+
+		@SubjectsAccordion(groups)
+	</div>
+}
+
+templ DetailPayment(course *graph.CourseView) {
+    <div class="detail__payment">
+        <p class="detail__payment-title">Payment Option</p>
+        <div class="detail__payment-description">@templ.Raw(course.PaymentOptions)</div>
+	</div>
+}
+
+templ DetailCareer(course *graph.CourseView) {
+    <div class="detail__career">
+		<p class="detail__career-title">Career Pathway</p>
+		<div class="detail__career-nav">
+			if course.JobOutcomes != "" {
+				<button
+					class="detail__career-btn detail__career-btn--active"
+					hx-get={ "/courses/" + string(course.IDText) + "/career?section=job" }
+					hx-target={"#career-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click
+						add .detail__career-btn--active to me
+						then remove .detail__career-btn--active from my siblings()
+					"
+				>
+					Job Outcome
+				</button>
+			}
+
+			if course.FurtherStudyAndEducationPathways != "" {
+				<button
+					class="detail__career-btn"
+					hx-get={ "/courses/" + string(course.IDText) + "/career?section=study" }
+					hx-target={"#career-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click 
+						add .detail__career-btn--active to me
+						then remove .detail__career-btn--active from my siblings()
+					"
+				>
+					Further Study
+				</button>
+			}
+		</div>
+
+        <div id={"career-curr-desc-" + string(course.IDText)} class="detail__career-description">
+			if course.JobOutcomes != "" {
+				@templ.Raw(course.JobOutcomes)
+			} else {
+				@templ.Raw(course.FurtherStudyAndEducationPathways)
+			}
+		</div>
+	</div>
+}
+
+templ DetailFeatures(course *graph.CourseView) {
+    <div class="detail__features">
+		<p class="detail__features-title">Course Features</p>
+		<div class="detail__features-description">@templ.Raw(course.CourseFeatures)</div>
+	</div>
+}
+
+templ DetailRecognition(course *graph.CourseView) {
+    <div class="detail__recognition">
+		<p class="detail__recognition-title">Professional Recognition</p>
+		<div class="detail__recognition-nav">
+			if course.ProfessionalRecognition != "" {
+				<button
+					class="detail__recognition-btn detail__recognition-btn--active"
+					hx-get={ "/courses/" + string(course.IDText) + "/recognition?section=recognition" }
+					hx-target={"#recognition-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click
+						add .detail__recognition-btn--active to me
+						then remove .detail__recognition-btn--active from my siblings()
+					"
+				>
+					Recognition
+				</button>
+			}
+
+			if course.Partner.Name != "" {
+				<button
+					class="detail__recognition-btn"
+					hx-get={ "/courses/" + string(course.IDText) + "/recognition?section=partnership" }
+					hx-target={"#recognition-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click 
+						add .detail__recognition-btn--active to me
+						then remove .detail__recognition-btn--active from my siblings()
+					"
+				>
+					Partnerships
+				</button>
+			}
+		</div>
+
+        <div id={"recognition-curr-desc-" + string(course.IDText)} class="detail__recognition-description">
+			if course.ProfessionalRecognition != "" {
+				@templ.Raw(course.ProfessionalRecognition)
+			} else {
+				{ course.Partner.Name }
+			}
+		</div>
+	</div>
+}
+
+templ DetailEligibility(course *graph.CourseView) {
+    <div class="detail__eligibility">
+		<p class="detail__eligibility-title">Eligibility</p>
+		<div class="detail__eligibility-nav">
+			if course.EntryRequirements != "" {
+				<button
+					class="detail__eligibility-btn detail__eligibility-btn--active"
+					hx-get={ "/courses/" + string(course.IDText) + "/eligibility?section=entry" }
+					hx-target={"#eligibility-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click
+						add .detail__eligibility-btn--active to me
+						then remove .detail__eligibility-btn--active from my siblings()
+					"
+				>
+					Entry Requirements
+				</button>
+			}
+
+			if course.RecognitionOfPriorLearning != "" {
+				<button
+					class="detail__eligibility-btn"
+					hx-get={ "/courses/" + string(course.IDText) + "/eligibility?section=prior" }
+					hx-target={"#eligibility-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click 
+						add .detail__eligibility-btn--active to me
+						then remove .detail__eligibility-btn--active from my siblings()
+					"
+				>
+					Prior Learning (RPL)
+				</button>
+			}
+		</div>
+
+        <div id={"eligibility-curr-desc-" + string(course.IDText)} class="detail__eligibility-description">
+			if course.EntryRequirements != "" {
+				@templ.Raw(course.EntryRequirements)
+			} else {
+				@templ.Raw(course.RecognitionOfPriorLearning)
+			}
+		</div>
+	</div>
+}
+
+templ DetailWork(course *graph.CourseView) {
+    <div class="detail__work">
+		<p class="detail__work-title">Work Placement</p>
+        <div class="detail__work-description">@templ.Raw(course.WorkPlacement)</div>
+	</div>
+}
+
+templ DetailCurriculum(course *graph.CourseView) {
+    <div class="detail__curriculum">
+		<p class="detail__curriculum-title">Curriculum</p>
+		<div class="detail__curriculum-nav">
+			if course.Materials != "" {
+				<button
+					class="detail__curriculum-btn detail__curriculum-btn--active"
+					hx-get={ "/courses/" + string(course.IDText) + "/curriculum?section=materials" }
+					hx-target={"#curriculum-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click
+						add .detail__curriculum-btn--active to me
+						then remove .detail__curriculum-btn--active from my siblings()
+					"
+				>
+					Materials
+				</button>
+			}
+
+			if course.Assessment != "" {
+				<button
+					class="detail__curriculum-btn"
+					hx-get={ "/courses/" + string(course.IDText) + "/curriculum?section=assessment" }
+					hx-target={"#curriculum-curr-desc-" + string(course.IDText)}
+					hx-swap="innerHTML"
+					_="on click 
+						add .detail__curriculum-btn--active to me
+						then remove .detail__curriculum-btn--active from my siblings()
+					"
+				>
+					Assessment
+				</button>
+			}
+		</div>
+
+        <div id={"curriculum-curr-desc-" + string(course.IDText)} class="detail__curriculum-description">
+			if course.Materials != "" {
+				@templ.Raw(course.Materials)
+			} else {
+				@templ.Raw(course.Assessment)
+			}
+		</div>
+	</div>
+}
+
+templ DetailTestimonials(course *graph.CourseView) {
+    <div class="detail__testimonials">
+		<p class="detail__testimonials-title">Testimonials</p>
+        <div class="detail__testimonials-description">{ course.TestimonialText }</div>
+	</div>
+}
+
+templ DetailInformation(course *graph.CourseView) {
+    <div class="detail__information">
+		<p class="detail__information-title">Additional Information</p>
+        <div class="detail__information-description">@templ.Raw(course.AdditionalInformation)</div>
+	</div>
+}

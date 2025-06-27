@@ -1,0 +1,54 @@
+package templates
+
+type SubjectItem struct {
+	Module  string
+	Code    string
+	Name    string
+	Details string
+}
+
+type ModuleGroup struct {
+	Module   string
+	Subjects []SubjectItem
+}
+
+templ SubjectsAccordion(groups *[]ModuleGroup) {
+	for _, group  := range *groups {
+		<div class="accordion main">
+			<!-- Top‑level header -->
+			<div 
+				class="accordion-header main"
+				_="on click
+					toggle .open on my.closest('.accordion') then
+					toggle .rotated on my.querySelector('i')
+				"
+			>
+					{ group.Module }
+					<i class="fa fa-chevron-down rotatable" aria-hidden="true"></i>
+			</div>
+
+			<div class="accordion-content main">
+			<!-- Render nested items -->
+				for _, item  := range group.Subjects {
+					<div class="accordion child">
+						<div class="accordion-header"
+							_="on click
+								toggle .open on my.closest('.accordion') then
+								toggle .rotated on my.querySelector('i')
+							"
+						>
+							if item.Code != "" {
+								{ item.Code } - 
+							}
+							{ item.Name }
+							<i class="fa fa-chevron-down rotatable" aria-hidden="true"></i>
+						</div>
+						<div class="accordion-content">
+							@templ.Raw(item.Details)
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	}
+}

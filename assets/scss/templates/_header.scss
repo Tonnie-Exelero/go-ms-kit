@@ -1,0 +1,20 @@
+@use "../abstracts" as a;
+
+.header {
+  @include a.flex-between;
+  gap: a.$spacing-3xl;
+  padding-inline: a.$spacing-2xl;
+
+  &__title {
+    font-family: a.$font-family-primary;
+    font-size: a.$font-size-2xl;
+    font-weight: a.$font-weight-bold;
+    line-height: 2.5rem;
+    color: a.$color-text-primary;
+    margin: 0;
+  }
+
+  &__logo {
+    @include a.flex-end;
+  }
+}
