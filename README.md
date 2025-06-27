@@ -15,7 +15,7 @@ This is a fast-track toolkit for building micro frontend services using Go 1.22,
 ## Project Structure
 
 ```
-github.com/Tonnie-Exelero/go-ms-kit/tree/main/
+github.com/Tonnie-Exelero/go-ms-kit/
 ├── Dockerfile
 ├── Makefile
 ├── .env
@@ -51,7 +51,7 @@ github.com/Tonnie-Exelero/go-ms-kit/tree/main/
 
    ```bash
    git clone [MF-Toolkit URL](https://github.com/DarrylOrchestraX/orchestrax-mf-toolkit.git)
-   cd github.com/Tonnie-Exelero/go-ms-kit/tree/main
+   cd github.com/Tonnie-Exelero/go-ms-kit
 
    ```
 

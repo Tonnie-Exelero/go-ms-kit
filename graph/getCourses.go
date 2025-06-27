@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Tonnie-Exelero/go-ms-kit/tree/main/models" // Adjust the import path as necessary
+	"github.com/Tonnie-Exelero/go-ms-kit/models" // Adjust the import path as necessary
 )
 
 type CourseView struct {
